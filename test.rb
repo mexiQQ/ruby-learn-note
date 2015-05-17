@@ -67,3 +67,23 @@ call_block {puts 'hello world'}
 print 'hello'
 print ' world'
 print "\n"
+
+#***************
+puts "**************"
+
+class File
+  def File.open_and_process(*args)
+    f = File.open(*args)
+    yield f
+    f.close
+  end
+end
+
+File.open_and_process("/Users/liwenqian/Desktop/tmp.txt","r") do |file|
+  while line = file.gets
+    puts line
+  end
+end
+
+# 其实不需要自己写这个 open_and_process 的类方法 ，open 方法本身就支持 block 处理完成后自动关闭文件，但是前提是传入了 block 参数，有种 Kenel.block.given? 的味道
+

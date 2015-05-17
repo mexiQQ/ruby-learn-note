@@ -111,15 +111,102 @@
   animals = %w{my name is lijianwei}
   animals.each {|animal| puts "#{animal}#{animal}"}
 
+13> 尝试使用 ruby 的数组事先 stack  set queue dequeue 等数据结构
 
+14> hash 在 OC 和 ruby 中都是最常用的对象 而数组是实现其他数据结构的基础 
 
+15> ruby 中的Array 和 Hash 都是可变的
 
+16> Array add a element
+  Items can be added to the end of an array by u
+  sing either #push or #<<
 
+    arr = [1, 2, 3, 4]
+    arr.push(5) #=> [1, 2, 3, 4, 5]
+    arr << 6    #=> [1, 2, 3, 4, 5, 6]
 
+  #unshift will add a new item to the beginning
+  of an array.
 
+    arr.unshift(0) #=> [0, 1, 2, 3, 4, 5, 6]
 
+  With #insert you can add a new element to an array at any position.
 
+    arr.insert(3, 'apple')  #=> [0, 1, 2, 'apple', 3, 4, 5, 6]
 
+  Using the #insert method, you can also insert multiple values at once:
+
+    arr.insert(3, 'orange', 'pear', 'grapefruit')
+    #=> [0, 1, 2, "orange", "pear", "grapefruit", "apple", 3, 4, 5, 6]
+
+17> Array delete a element
+
+......
+
+18> 迭代器 
+
+内部迭代器 和 外部迭代器
+
+ruby  的迭代器是内建于集合类的，不存在于类似java 中基于 Iterator 接口的对象
+
+迭代器值得深入研究
+
+19> 关于 block 使用的一个有趣的地方
+文件类自己关闭文件（是否传递block参数 ）
+
+  //ruby
+  class File
+    def File.open_and_process(*args)
+        f = File.open(*args)
+            yield f
+                f.close
+                  end
+                  end
+
+                  File.open_and_process("/Users/liwenqian/Desktop/tmp.txt","r") do |file|
+                    while line = file.gets
+                        puts line
+                          end
+                          end
+    # 其实不需要自己写这个 open_and_process 的类方法 ，open 方法本身就支持 block 处理完成后自动关闭文件，但是前提是传入了 block 参数，有种 Kenel.block.given? 的味道
+
+20> Block 作为闭包的用处
+
+如下两个例子：
+
+  //ruby
+  songlist = SongList.new
+  class BoxButton < Button
+    def initialize(label,&action)
+      super(label)
+      @action = action
+    end
+    
+    def button_process
+      @action.call(self)
+    end
+  end
+
+  start_button = BoxButton.new('start') {songlist.start}
+  stop_buttopn = BoxButton.new('stop') {songlist.stop}
+
+  //ruby
+  def n_times(thing)
+    return lambda {|n| thing*n}
+  end
+
+  proc = n_times(23)
+  proc.call(3) => 69
+  proc.call(4) => 92
+
+如上所示：
+  n_times 函数返回一个基于 thing 局部变量的Proc 对象
+
+  然后之后调用这个 proc (block) 时，尽管thing已经出了其作用域，但是在block 中仍然有效访问
+
+  这就是ruby里block起到的闭包作用
+
+21> 
 
 
 
