@@ -1,0 +1,136 @@
+1> 对象方法消息机制，和 objective-C 类似
+2> 
+求一个值的绝对值
+
+  //java
+  number = Math.abs(number);
+
+  //ruby
+  number = number.abs
+
+从上述例子可以看出，对于基本数据类型的操作（如求绝对值）内建在该数据类型中，而不是其他的类中，更能体现面向对象的理念。
+
+3> 全局变量 $ 
+   类变量 @@
+   实例变量 @
+
+4> 一些基本知识
+
+  //ruby
+  #!/usr/bin/ruby
+  puts "hello world"
+
+  $school = "SDU"
+  @name = "SCU"
+  def say_goodnight name
+    #"good night, \n" + name
+    #'good night, \n#{name}'
+    "good night, \n#{name}"
+  end
+
+  puts say_goodnight("lijianwei")
+  puts "#$school,#$name"  
+
+>5 nil 是一个对象,不包含任何内容的空对象
+
+>6 Array & Dictionary
+
+  //ruby
+  # Array
+  a = [1,'cat','dog','lijianwei','ball']
+  puts "#{a[0]}"
+  puts "#{a[1]}"
+  puts "#{a[2]}"
+  puts "#{a[3]}"
+  puts "#{a[4]}"
+  puts "#{a[5]}"
+
+  a[2] = nil
+  puts "#{a[2]}"
+
+  b = %w{hello lijianwei ni hao}
+  puts b[2]
+
+  # Dictionary
+  dic1 = {
+          'tom'   => 'lijianwei',
+          'jerry' => 'lijianweini'
+        }
+  dic2 = {
+          tom: 'lijianwei',
+          jerry: 'lijianweini'
+        }
+  dic3 = {
+          :tom   => 'lijianwei',
+          :jerry => 'lijianweini'
+        }
+  puts dic1
+  puts dic2
+  puts dic3
+
+7>  
+  //ruby
+  # Dictionary 语法糖
+
+  dic4 = Hash.new(0)
+  puts dic4['hello']
+  dic4['hello'] = dic4['hello'] + 1
+  puts dic4['hello']
+
+8>
+控制结构，不使用花括号，使用 end 标识符
+
+9> if while 语句可以用作表达式 
+  //ruby
+  puts 'lijaiwnei' if 1000>999
+
+  irb(main):011:0> a=2
+  => 2
+  irb(main):012:0> puts a=a*a while a<1000
+  4
+  16
+  256
+  65536
+  => nil
+
+10> 小括号在大多数控制结构中不需要写
+ 
+11> 正则表达式  内建了正则表达式类 不需要通过接口的形势
+
+12> Block  闭包
+?? 为什么 Block  调用要使用 yield 呢？？
+
+  def call_block 
+    yield
+    yield
+  end
+
+  call_block {puts 'hello world'}
+
+  //和迭代器配合
+  animals = %w{my name is lijianwei}
+  animals.each {|animal| puts "#{animal}#{animal}"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
