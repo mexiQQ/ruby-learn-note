@@ -166,7 +166,7 @@ puts /ll/ =~ name
 # $' 匹配之后
 
 # *************
-re = /(\d+):(\d+ )/
+re = /(\d+):(\d+)/
 md = re.match("Time: 12:34am")
 puts md.class # = MatchData
  puts md[0] # == $&
@@ -175,3 +175,10 @@ puts md.class # = MatchData
 
  puts md.pre_match # == $`
  puts md.post_match # == $'
+
+ #**************
+ puts "*************"
+
+ puts __FILE__
+ puts File.dirname(__FILE__) 
+ puts File.basename(__FILE__)
