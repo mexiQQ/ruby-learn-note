@@ -206,7 +206,186 @@ ruby  的迭代器是内建于集合类的，不存在于类似java 中基于 It
 
   这就是ruby里block起到的闭包作用
 
-21> 
+21> 标准类型
+
+fixnum Bignum
+
+0 表示8进制
+0b 表示2进制
+0x 表示16进制
+0d 表示10进制
+
+同 swift 语言类似，大数值之间每三位可以使用一个下划线连接
+
+所有数值都是对象 ，而java等数值是基本类型 ，不是对象
+
+Fixnum 对象也有很多迭代的方法：
+
+3.times {}
+1.upto(5) {}
+99.downto(5) {}
+50.step(80,5) {}
+
+字符串转数值 Integer("5")
+
+22> 字符串
+
+"#{这里面的表达式可以被执行}"
+"#{24*60*60} 秒"
+"#{'hello' * 3} lijianwei"
+
+#{} //里面也可以使用上下文的变量，其实就相当于可执行表达式
+
+所以 #{} 里可以这样写
+
+  //ruby
+
+puts "the time #{def the(a)
+                  'the ' + a
+                 end
+                 the('time')
+                } for all good coders"
+
+
+字符串字面量的其他三种构建方式
+
+  //ruby
+  %q %Q  here document
+
+  #%q %Q here document
+
+  puts %q<hello world>
+  puts %Q<hi #{24*60*60}>
+
+  string = <<End_Of_String
+  hello
+  lijianwei
+  liwenqian
+  End_Of_String
+
+  puts string
+
+  puts <<string , <<-string2
+    hello
+  string
+    lijianwei
+  string2
+
+#************
+字符串操作
+
+split(rex)
+scan(resx)
+squeeze(rex) //trim
+
+23> 区间 Range
+
+1..10
+1...10
+'a'..'z'
+my_array = [ 1, 2 ,3 ]
+0...my_array.length
+
+Range 内部并非用列表表示,如果需要可使用 to_a 来将区间转换为 列表
+
+如下所示：
+
+(1..10).to_a
+(bar..bat).to_a
+
+区间同 数组 和 hash 一样有很多的迭代方法 
+
+如下：
+digits = 0..9
+digits.include(5)?
+digits.min
+digits.max
+digits.reject {|i| i<5}
+digits.each
+
+一个 ruby  类和对象只要返回在序列中的下一个对象作为对 succ 的相应，并且对象间可以使用 <=> 进行比较时就可以用来形成区间
+
+  //ruby
+  class VU
+    include Comparable
+    attr  :volume
+    def initialize(volume)
+      @volume = volume
+    end
+
+    def inspect
+      '#' * @volume
+    end
+
+    def <=>(other)
+      self.volume <=> other.volume
+    end
+
+    def succ
+      raise(IndexError, "Volume is to big") if @volume >= 9
+      tmp = @volume + 1
+      VU.new(tmp)
+    end
+  end
+
+    medium_volume = VU.new(4)..VU.new(7)
+    medium_volume.to_a
+    medium_volume.each {|value| puts value.inspect}
+
+区间还可以作为间隔测试 如下：
+
+(1..10) === 5   => true
+(1..10) === 15  => false
+('a'..'z') === 'c' => true
+
+===  case equality 符号
+
+24> 正则表达式
+
+  //ruby
+  # regx
+
+  a = Regexp.new('^\s*[a-z]')
+  b = /^\s*[a-z]/
+  c = %r{^\s*[a-z]}
+
+  # 匹配符号 =～ 肯定匹配!~
+  name = "fats waller"
+  puts name =~ /a/
+  puts name =~ /[\s]/
+  puts /ll/ =~ name
+
+  # $& 匹配内容
+  # $` 匹配之前
+  # $' 匹配之后
+
+正则表达式模式
+各种匹配规则，比较强大，比 shell 的 sed  awk 强大很多个级别，支持多种流派的正则语法
+
+[:alnum:] [:alpha:] [:blank:] [:space:]
+后面可以做一个爬虫，很简单
+
+ruby 计算开始括号的数目，保存每个开始括号和相应的关闭括号之间部分匹配的结果。你可以在模式的剩余部分和 ruby 程序中使用这种部分匹配。在模式内部， \1 序列指的时第一个组的匹配面, \2 序列指的是第二个组的匹配，在模式外 $1 $2 起相同的作用
+
+基于对象的 正则表达式的使用
+
+re = /(\d+):(\d)/
+md = re.match("Time: 12:34am")
+md.class // MatchData
+md[0] # == $&
+md[1] # == $1
+md[2] # == $2
+
+md.pre_match # == $`
+md.post_match # == $'
+
+25>
+
+
+
+
+
+
 
 
 
