@@ -382,6 +382,44 @@ md.post_match # == $'
 25>
 关于方法的更多细节
 
+表示查询的方法通常以? 结尾
+表示危险的或者会修改接受者对象的方法以!结尾
+表示赋值的方法以 = 结尾
+
+只有 ? ! = 三个特殊的字符作为方法名后缀
+
+ruby 可以指定方法的默认值 即：
+
+  //ruby
+  def cool_dude(arg1="Miles",arg2="Coltrans",arg3="Roach")
+     "#{arg1},#{arg2},#{arg3}"
+  end
+
+  puts cool_dude
+  puts cool_dude('Bart')
+  puts cool_dude('Bart','Elwood')
+  puts cool_dude('Bart','Elwood','Linus')
+
+可变长度的参数列表
+
+使用一个行参(parameter)接受多个参数，只需在普通的参数前面放置一个 *
+
+  //ruby
+  def varargs(arg1,*rest)
+    "#{arg1} #{rest.join(', ')}"
+  end
+
+  puts varargs("one")
+  puts varargs("one","two")
+  puts varargs "one","two","three"
+
+block 在方法中的两种使用方式，都是在 iOS 中 OC 常用的两种方式
+
+
+
+
+
+
 
 
 

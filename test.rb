@@ -182,3 +182,81 @@ puts md.class # = MatchData
  puts __FILE__
  puts File.dirname(__FILE__) 
  puts File.basename(__FILE__)
+
+#*************
+puts "*************"
+
+#method default parameter value
+
+def cool_dude(arg1="Miles",arg2="Coltrans",arg3="Roach")
+   "#{arg1},#{arg2},#{arg3}"
+end
+
+puts cool_dude
+puts cool_dude('Bart')
+puts cool_dude('Bart','Elwood')
+puts cool_dude('Bart','Elwood','Linus')
+
+
+def varargs(arg1,*rest)
+  "#{arg1} #{rest.join(', ')}"
+end
+
+puts varargs("one")
+puts varargs("one","two")
+puts varargs "one","two","three"
+
+#Method & Block
+
+def take_block(p1)
+  if block_given?
+    yield(p1)
+  else
+    p1
+  end
+end
+
+take_block("no block")
+take_block("no block") {|s| s.sub(/no /,"")}
+
+#如果方法定义的最后一个餐素前缀为 & 那么所关联的block 会被转换为一个 Proc 对象 然后赋值给这个参数
+ 
+class TaxCalculator
+  def initialize(name,&block)
+    @name,@block = name,block
+  end
+
+  def get_tax(amount)
+    "#@name on #{amount} = #{ @block.call(amount) }"
+  end
+end
+
+tc = TaxCalculator.new('Sales tax') {|amt| amt*0.075}
+
+puts tc.get_tax(100)
+puts tc.get_tax(250)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
