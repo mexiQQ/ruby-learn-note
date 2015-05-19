@@ -415,10 +415,75 @@ ruby 可以指定方法的默认值 即：
 
 block 在方法中的两种使用方式，都是在 iOS 中 OC 常用的两种方式
 
+  //ruby
+  #Method & Block
 
+  def take_block(p1)
+    if block_given?
+      yield(p1)
+    else
+      p1
+    end
+  end
 
+  take_block("no block")
+  take_block("no block") {|s| s.sub(/no /,"")}
 
+  #如果方法定义的最后一个餐素前缀为 & 那么所关联的block 会被转换为一个 Proc 对象 然后赋值给这个参数
 
+  class TaxCalculator
+    def initialize(name,&block)
+      @name,@block = name,block
+    end
+
+    def get_tax(amount)
+      "#@name on #{amount} = #{ @block.call(amount) }"
+    end
+  end
+
+  tc = TaxCalculator.new('Sales tax') {|amt| amt*0.075}
+
+  puts tc.get_tax(100)
+  puts tc.get_tax(250)
+
+在方法名和参数左括号之间不可以放空格，这会使解析变的异常困难
+
+#方法的返回值问题
+
+  //ruby
+  def meth_three
+    100.times do |num|
+      square = num * num
+      return num, square if square > 1000
+    end
+  end
+
+  num , square = meth_three
+  puts num
+  puts square
+  puts meth_three.class # => Array 
+
+  def five(a,b,c,d,e)
+    "#{a} #{b} #{c} #{d} #{e}"
+  end
+
+  five(1,2,3,4,5)
+  five(*(10..14).to_a)
+
+  //ruby
+  # block 更灵活的用法
+  print "(t)imes or (p)lus:"
+  times = gets
+  print "number:"
+  number = Integer(gets)
+
+  if times =~ /^t/
+    cals = lambda {|b| b * number}
+  else
+    cals = lambda {|b| b + number}
+  end
+
+  puts ((1..10).collect(&cals).join(', '))
 
 
 

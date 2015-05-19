@@ -236,27 +236,39 @@ tc = TaxCalculator.new('Sales tax') {|amt| amt*0.075}
 puts tc.get_tax(100)
 puts tc.get_tax(250)
 
+#return value
 
+puts '***********'
+def meth_three
+  100.times do |num|
+    square = num * num
+    return num, square if square > 1000 
+  end
+end
 
+num , square = meth_three  
+puts num 
+puts square
+puts meth_three.class #Array
 
+def five(a,b,c,d,e)
+  "#{a} #{b} #{c} #{d} #{e}"
+end
 
+five(1,2,3,4,5)
+five(*(10..14).to_a)
 
+# block 更灵活的用法
 
+print "(t)imes or (p)lus:"
+times = gets
+print "number:"
+number = Integer(gets)
 
+if times =~ /^t/
+  cals = lambda {|b| b * number}
+else
+  cals = lambda {|b| b + number}
+end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+puts ((1..10).collect(&cals).join(', '))
