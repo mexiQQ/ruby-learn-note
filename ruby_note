@@ -513,6 +513,59 @@ if case 语句都返回最后执行的表达式值
 
 27>  异常 捕获 和 抛出
 
+异常处理：在一个begin/end块中，使用一个或多个 rescue 语句告诉ruby希望处理的异常类型。在这个例子里我们感兴趣的是捕获 SystemCallError 异常 
+
+在错误处理的Block 中，我们报告错误
+
+  //ruby
+  op_file = File.open(opfile_name,'w')
+  begin
+    # 这段代码引发的异常会被
+    # 下面的 rescue 语句捕获 
+
+    while data = socket.read(512)
+      op_file.write(data)
+    end
+
+  rescue SystemCallError 
+    $stderr.print 'IO failed: ' + $!
+    op_file.close
+    File.delete(opfile_name)
+    raise
+  end
+
+# 当异常发生时，Ruby 将相关Exception 对象放到全局变量 $! 中，与任何随后的异常处理不相干
+
+ruby Exception 树
+
+Exception:
+  fatal
+  noMemoryError
+  ScriptError
+  SignalException
+  StandarError(IOError RuntimeError ....)
+  SystemExit
+  SystemStackError
+
+# 异常中 else  和 ensure 的用法
+
+  //ruby
+  f = File.open("testfile")
+  begin 
+    #...
+  rescue
+    #...
+  else
+    puts "Congratulation -- no error"
+  ensure
+    f.close unless f.nil? # nil? 方法判断是否为空
+  end
+
+主动引发异常
+
+raise # 引发当前异常，如果没有引发 Runtime
+raise "bad mps encoding" # 引发 RuntimError 消息设置为指定字符串
+raise InterfaceException, "Keyboard failure", caller
 
 
 
