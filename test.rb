@@ -272,3 +272,81 @@ else
 end
 
 puts ((1..10).collect(&cals).join(', '))
+
+class Fixnum
+  # 先将原先的加法存储为别名 old_plus
+  alias old_plus + 
+
+  def +(other)
+    old_plus(other).old_plus(1) 
+  end
+end
+
+puts 1 + 2
+a = 3
+a += 4
+puts a + a + a
+
+class Song
+  def [](from_time,to_time)
+    result = Song.new(self.title + "[extract]",self.artist,to_time-from_time)
+    result.set_start_time(from_time)
+    result
+  end
+end
+
+# 使用一下代码试听
+# song[0,15].play
+
+# 反引号括住作为操作系统底层命令 
+# %x{} 中的内容也被当作操作系统底层命令
+
+`date`
+`ls`
+
+%x{ echo "Hello world" }
+
+alias old_backquote `
+
+def `(cmd)
+  result = old_backquote(cmd)
+  if $? != 0
+    fail "Command #{cmd} failed: #$?"
+  end
+  result
+end
+
+print `date`
+#print `data`
+
+class Test
+  def val=(val)
+    @val = val
+    return 99
+  end
+end
+
+t = Test.new
+a = t.val = 2
+# 按理说 t.val 方法的返回值是 99 所以 a=99
+# 新版本将直接使用 参数的值 而返回值被忽略
+
+a # => 2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

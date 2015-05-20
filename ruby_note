@@ -450,7 +450,6 @@ block 在方法中的两种使用方式，都是在 iOS 中 OC 常用的两种�
 
 #方法的返回值问题
 
-  //ruby
   def meth_three
     100.times do |num|
       square = num * num
@@ -486,20 +485,30 @@ block 在方法中的两种使用方式，都是在 iOS 中 OC 常用的两种�
   puts ((1..10).collect(&cals).join(', '))
 
 
+26>  ruby 表达式 
 
+明显好处：可以实现链式表达式
+[2,1,7,0].sort.reverve  => [7,2,1,0]  
 
+不太明显的好处:
+if case 语句都返回最后执行的表达式值
 
+  //ruby 
+  song_type = if song.mp3_type == MP3::jazz
+                if song.written < Date.new(1995,1,1)
+                  Song::Tradjazz
+                else
+                  Song::jazz
+                end
+              else
+                Song::Other
+              end
 
-
-
-
-
-
-
-
-
-
-
+  rating = case votes_cast
+           when 0..10 then Rating::SkipThisOne
+           when 10...50 then Rating::CouldDoBetter
+           else             Rating::Rave
+           end
 
 
 
