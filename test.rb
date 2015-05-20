@@ -333,20 +333,150 @@ a = t.val = 2
 
 a # => 2
 
+#并行赋值
+# swap 
+
+a,b = 1, 2
+a, b= b,a
+
+x = 0
+a,b,c = x , (x+=1), (x+=1)
+# => 0,1,2
 
 
+# ruby  的并行赋值操作  可以叠加和展开数组，如果最后一个左值有一个 前缀 * 那么所有的右值将集中一起，作为数组传给左值 
 
+a = [1,2,3,4,5]
+b,c = a # b=1 c=2
+b,*c = a # b=1 c = [2,3,4,5]
+b,c = 99, *a # b = 99 c= 1
+b,*c = 99, *a # b = 99 c =[1,2,3,4,5]
 
+b,(c,d),e = 1,2,3,4 #b==1 c==2 d==nil e==3
+b,(c,d),e = 1,[2,3],4 #b==1,c==2,d==3,e==4
 
+#条件执行
 
+#while line = gets
+  #process line
+#enhd
 
+# 0 和 '' 为真值 任何不是 nil  或者常量 false  都被认为是真值
 
+# && || !  and or not defined?
+#
 
+puts defined? 1
+puts defined? dummy #=>nil
+puts defined? printf
+puts defined? String
+puts defined? $_
+puts defined? Math::PI
+puts defined? a = 1
+puts defined? 42.abls
 
+#常用比较操作符
+#== 测试值是否相等
+#=== 用来比较  case  语句的目标和每个 when 语句从项
+#<==> 通用比较操作符，格局接受者小雨，等于或大雨其参数，返回1,0,-1
+#<, <= ,>=,> 小于 小于等于，大于等于，大于
+#=~ != 正则表达式匹配操作符
+#eal? 如果接受者和参数有相同的类型和相等的值，则返回真，1==1.0 true,1.eql?(1.0) false
+#equal? 如果接受者和参数有相同的对象 ID  返回 true
+#
 
+#words["key"] ||= []
+# words[key] = words[key]==nil?[]:words[key]
+# 如上所示 ，ruby  将本来已经缩减的代码又缩减了
+# words[key] = [] if words[key]==nil
+#
 
+[]<<2<<3<<4<<5
+# 级联式调用，因为每句表达式都会有返回值
+#
 
+# then 关键值能使代码更加紧凑
+a=1
+if a==1 then b="hello"
+elsif a==2 then b="hi"
+else b="lijiawei"
+end
 
+# 使用 : 替换 then  更简洁
+if a==1 then b="hello"
+elsif a==2 then  b="hi"
+else b="lijiawei"
+end
 
+# if 是表达式 不是语句 所以有返回值，可以这样使用 
 
+handle = if a > 2 then 3
+         else 4
+         end
+# handle = 4
 
+# 否定形式的 if 语句  unless  如果不
+unless 2>3 then c=5
+else c=6
+end
+# 如果 2 不大于 3 的话  c=5
+
+# if  和 unless 的一些灵活用法
+
+#File.foreach("/etc/fstab") do |line|
+#  next if line =~ /^#/
+#  parse(line) unless line =~ /^$/
+#end
+
+# 来个更晦涩难懂的
+
+use_nicknames = 'yes'
+artist = "lijianwie"
+if artist == "lijianwei"
+  artist == "liwenqian"
+end unless use_nicknames == "no"
+
+#case  语句的用法 
+line = gets
+  
+case line
+when /lijianwein/ then puts "lijiwei"
+when /liwenqian/ then puts "liwenqian"
+when "quit","exit" then  puts  "quite success"
+else 
+  #....
+end
+
+# ruby 定义了 === 以测试参数是否为该类或者其父类的一个实例
+
+#case shape
+#when Square,Rectangle
+  #...
+#when Circle
+  #....
+#else 
+  #...
+#end
+
+# 循环
+# while until 
+
+#while line = gets 
+  #...
+#end
+
+a = 1
+until a > 10
+  a+=1 # ruby 没有 a++ 的
+end
+puts a
+# 可以用做修饰符
+a = 1
+a *= 2 while a < 100
+a -= 10 until a < 100
+puts a 
+
+file = File.open('../../tmp.txt')
+while line = file.gets
+  puts line if line =~ /father/
+end
