@@ -480,3 +480,79 @@ file = File.open('../../tmp.txt')
 while line = file.gets
   puts line if line =~ /father/
 end
+
+#  ruby 的内建循环结构很原始，但迭代实现了所有有趣的东西
+#
+
+# 例如 ruby 没有for循环结构
+
+3.times do
+  print "HO!"
+end
+
+0.upto(9) do |x|
+  print x
+end
+
+0.step(12,3) {|x| print x, "" }
+
+[1,2,3,4,5].each {|val| print val,"  "}
+
+File.open("../../tmp.txt").grep(/father/) do |line|
+  puts line
+end
+
+# 所有支持 each 方法的类都支持 for in 循环
+
+# 循环控制结构
+# break next redo
+
+i = 0
+loop do 
+  i += 1
+  next if i<3
+  print i
+  break if i>4
+end 
+
+# 输出 3 4 5
+# redo 从循环头重新执行循环，但不重计算循环条件表达式，或者获得迭代的下一元素
+
+# redo 语句使得一个循环重新执行当前迭代 但是有时你需要重头重新执行一个循环,retry 用于做此事
+#
+
+#for i in 1..100
+#  print "now at #{i}. Restart?:"
+#  retry if gets =~ /^y/i
+#end
+#
+#def do_util(cond)
+#  break if cond
+#  yield
+#  retry
+#end
+#
+#i=0
+#do_util(i>10) do
+#  print i, " "
+#  i+=1
+#end
+
+############################
+#很重要的一点 while until for 循环等结构虽然内建到ruby 语言中，但没有引入新的作用域
+#但被迭代器使用的 block  入 each  loop 中创建的局部变量，无法在 block 外访问
+#
+
+[1,2,3,4].each do |x| 
+  y = x+1
+end
+[x,y] #=> error
+
+x,y = nil,nil
+[1,2,3,4].each do |x| 
+  y = x+1
+end
+[x,y] #=> [3,4]
+# 外部作用域中变量不必有值 ruby 解释器只需看到即可
+#
+
