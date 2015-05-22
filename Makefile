@@ -1,5 +1,5 @@
 test:
-	./test.rb
+	./test2.rb
 .PHONY:test
 clean:
 	rm -rf .*.*.sw* 
