@@ -85,3 +85,54 @@ puts nf.sum
   load "temp.rb"
   puts Temp.var
 end
+
+# 基本输入和输出
+
+print "Enter your name:"
+name = gets
+
+
+IO.foreach("../../tmp.txt:") {|line| puts line}
+# 以读模式打开文件，并以文件的每一行行为参数调用关联的迭代器，最后自动关闭文件
+
+str = IO.read("../../tmp.txt")
+str.length
+str[2,40]
+
+arr = IO.readlines("../../tmp.txt")
+arr.length
+arr[0]
+
+# 写文件
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
