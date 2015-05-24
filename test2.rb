@@ -1,4 +1,5 @@
-#!/usr/bin/ruby
+#!/usr/bin/ruby -w 
+#-r profile
 
 # Comparable 模块
 # incluede之后
