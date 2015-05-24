@@ -182,7 +182,8 @@ brew.puts "hello world"
 brew.close_write
 puts brew.gets
 
-
+# Unit Test
+# assert  通过 ri 命令查看 Test::Unit 文档
 
 
 
