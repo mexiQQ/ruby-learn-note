@@ -1,4 +1,4 @@
-#!/usr/bin/ruby -w 
+#!/usr/bin/ruby -w -r debug 
 #-r profile
 
 # Comparable 模块
